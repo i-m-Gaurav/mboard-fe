@@ -22,7 +22,7 @@ const PostMovie = () => {
         { title, desc },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      console.log("Movie suggested successfully", response.data);
+      // console.log("Movie suggested successfully", response.data);
       setTitle("");
       setDesc("");
       getMovies();

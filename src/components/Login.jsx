@@ -31,10 +31,10 @@ export default function Login() {
       );
       // backend returns the token string directly
       const token = response.data.token;
-      console.log("token", token);
+      // console.log("token", token);
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(response.data.user));
-      console.log("token", token);
+      // console.log("token", token);
 
       // Navigate immediately - Navbar will fetch user profile
       navigate("/");

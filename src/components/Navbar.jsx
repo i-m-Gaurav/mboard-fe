@@ -47,7 +47,7 @@ const Navbar = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      console.log("response from profile fetch", response.data);
+      // console.log("response from profile fetch", response.data);
 
       if (response.data && response.data[0]) {
         const userData = response.data[0];

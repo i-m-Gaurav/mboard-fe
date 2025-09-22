@@ -30,7 +30,7 @@ const Signup = () => {
         "https://mboard-taupe.vercel.app/api/user/signup",
         formData
       );
-      console.log("signup response", response.data);
+      // console.log("signup response", response.data);
       navigate("/login");
     } catch (error) {
       console.error("signup error", error);
