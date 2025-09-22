@@ -18,7 +18,7 @@ const PostMovie = () => {
       }
 
       const response = await axios.post(
-        "https://mboard-taupe.vercel.app/api/movies/suggestMovie",
+        "https://mboard-taupe.vercel.app//api/movies/suggestMovie",
         { title, desc },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -37,7 +37,7 @@ const PostMovie = () => {
       setLoading(true);
 
       const response = await axios.get(
-        "https://mboard-taupe.vercel.app/api/movies/getAllMovies"
+        "https://mboard-taupe.vercel.app//api/movies/getAllMovies"
       );
       console.log("response from get all movies", response.data);
 

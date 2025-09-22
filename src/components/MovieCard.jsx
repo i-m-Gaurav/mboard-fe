@@ -3,8 +3,8 @@ import {
   MessageSquareIcon,
   ArrowBigDown,
   User,
-  Calendar,
   Trash2Icon,
+  TrashIcon,
 } from "lucide-react";
 import { useState } from "react";
 import axios from "axios";
@@ -22,15 +22,15 @@ const MovieCard = ({ movie }) => {
   );
 
   const movieId = movie?._id || "defaultId";
-
-  const toggleVisibility = () => setIsVisible(!isVisible);
-
   const token = localStorage.getItem("token");
+
   const isAdmin =
     localStorage.getItem("user") &&
     JSON.parse(localStorage.getItem("user")).role === "admin";
 
   const handleChange = (e) => setCommentsInput(e.target.value);
+
+  const toggleVisibility = () => setIsVisible(!isVisible);
 
   const handleDelete = async () => {
     if (!isAdmin) {
@@ -45,7 +45,7 @@ const MovieCard = ({ movie }) => {
 
     try {
       await axios.delete(
-        `https://mboard-taupe.vercel.app/api/movies/suggestedMovie/${movieId}`,
+        `https://mboard-taupe.vercel.app//api/movies/suggestedMovie/${movieId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       alert("Movie deleted successfully.");
@@ -67,19 +67,15 @@ const MovieCard = ({ movie }) => {
       }
 
       const response = await axios.post(
-        `https://mboard-taupe.vercel.app/api/movies/suggestedMovie/${movieId}/comments`,
+        `https://mboard-taupe.vercel.app//api/movies/suggestedMovie/${movieId}/comments`,
         { comment: commentsInput },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      // Add new comment to the list
-      const newComment = {
-        _id: Date.now(),
-        comment: commentsInput,
-        userId: response.data.userId || "You",
-      };
+      // ✅ Use the populated comment returned by backend
+      const newComment = response.data.comment;
 
-      setComments([...comments, newComment]);
+      setComments((prev) => [...prev, newComment]);
       setCommentsInput("");
     } catch (error) {
       console.error("Error submitting comment", error);
@@ -87,7 +83,6 @@ const MovieCard = ({ movie }) => {
   };
 
   const sendVote = async (voteType) => {
-    const token = localStorage.getItem("token");
     if (!token) {
       alert("You must be logged in to vote");
       return;
@@ -100,7 +95,7 @@ const MovieCard = ({ movie }) => {
 
     try {
       const res = await axios.post(
-        `https://mboard-taupe.vercel.app/api/movies/suggestedMovie/${movieId}/vote`,
+        `https://mboard-taupe.vercel.app//api/movies/suggestedMovie/${movieId}/vote`,
         { vote: newVote },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -113,10 +108,33 @@ const MovieCard = ({ movie }) => {
     }
   };
 
+  const handleCommentDelete = async (commentId) => {
+    if (!isAdmin) {
+      alert("You do not have permission to delete this comment.");
+      return;
+    }
+
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this comment?"
+    );
+    if (!confirmDelete) return;
+
+    try {
+      await axios.delete(
+        `https://mboard-taupe.vercel.app//api/movies/suggestedMovie/${movieId}/comments/${commentId}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setComments((prev) => prev.filter((cmt) => cmt._id !== commentId));
+    } catch (error) {
+      console.error("Error deleting comment", error);
+      alert("Failed to delete the comment. Please try again.");
+    }
+  };
+
   return (
     <div className="bg-gradient-to-br mb-4 from-gray-800 to-gray-900 rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] border border-gray-700">
       {/* Movie Header */}
-      <div className="p-6 border-b w-2xl  border-gray-700">
+      <div className="p-6 border-b w-2xl border-gray-700">
         <div className="flex items-start justify-between mb-3">
           <h2 className="text-2xl font-bold text-white leading-tight flex-1 mr-4">
             {movie.title}
@@ -209,7 +227,7 @@ const MovieCard = ({ movie }) => {
                 <button
                   type="submit"
                   disabled={!commentsInput.trim()}
-                  className="px-6 py-2 bg-gradient-to-br mb-4 from-gray-600 to-gray-700 hover:cursor-pointer  text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed font-medium"
+                  className="px-6 py-2 bg-gradient-to-br mb-4 from-gray-600 to-gray-700 hover:cursor-pointer text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed font-medium"
                 >
                   Post Comment
                 </button>
@@ -228,22 +246,30 @@ const MovieCard = ({ movie }) => {
                   >
                     <div className="flex items-start space-x-3">
                       <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
-                        {cmt.userId?.username?.[0]?.toUpperCase() || "A"}
+                        {cmt.user_id?.name?.[0]?.toUpperCase() || "A"}
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center space-x-2 mb-1">
                           <span className="text-white font-medium text-sm">
-                            {cmt.userId?.username || "Anonymous"}
+                            {cmt.user_id?.name || "Anonymous"}
                           </span>
                           <span className="text-gray-500 text-xs">•</span>
                           <span className="text-gray-500 text-xs">
                             Just now
                           </span>
                         </div>
+
                         <p className="text-gray-300 text-sm leading-relaxed">
                           {cmt.comment}
                         </p>
                       </div>
+                      {isAdmin && (
+                        <div className="cursor-pointer text-gray-400 hover:text-red-500">
+                          <button onClick={() => handleCommentDelete(cmt._id)}>
+                            <Trash2Icon />
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 ))}

@@ -43,7 +43,7 @@ const Navbar = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://mboard-taupe.vercel.app/api/user/profile",
+        "https://mboard-taupe.vercel.app//api/user/profile",
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
