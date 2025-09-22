@@ -121,7 +121,7 @@ const MovieCard = ({ movie }) => {
 
     try {
       await axios.delete(
-        `https://mboard-taupe.vercel.app//api/movies/suggestedMovie/${movieId}/comments/${commentId}`,
+        `https://mboard-taupe.vercel.app/api/movies/suggestedMovie/${movieId}/comments/${commentId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setComments((prev) => prev.filter((cmt) => cmt._id !== commentId));
