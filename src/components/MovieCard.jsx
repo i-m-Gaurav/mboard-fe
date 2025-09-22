@@ -255,7 +255,7 @@ const MovieCard = ({ movie }) => {
                           </span>
                           <span className="text-gray-500 text-xs">•</span>
                           <span className="text-gray-500 text-xs">
-                            Just now
+                            {new Date(cmt.createdAt).toLocaleString()}
                           </span>
                         </div>
 
