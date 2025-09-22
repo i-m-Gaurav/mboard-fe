@@ -147,31 +147,7 @@ const Profile = () => {
                 </div>
               </div>
 
-              <div className="mt-8 pt-6 border-t border-gray-700">
-                <h3 className="text-lg font-semibold text-white mb-4">
-                  Account Actions
-                </h3>
-                <div className="space-y-3">
-                  <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition-colors">
-                    Edit Profile
-                  </button>
-                  <button className="w-full bg-gray-600 hover:bg-gray-700 text-white py-2 px-4 rounded-lg transition-colors">
-                    Change Password
-                  </button>
-                  <button
-                    className="w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg transition-colors"
-                    onClick={() => {
-                      if (
-                        confirm("Are you sure you want to delete your account?")
-                      ) {
-                        // TODO: Implement delete account
-                      }
-                    }}
-                  >
-                    Delete Account
-                  </button>
-                </div>
-              </div>
+             
             </div>
           </div>
 
