@@ -17,7 +17,7 @@ const PostMovie = () => {
         return;
       }
 
-      const response = await axios.post(
+      await axios.post(
         "https://mboard-taupe.vercel.app/api/movies/suggestMovie",
         { title, desc },
         { headers: { Authorization: `Bearer ${token}` } }
