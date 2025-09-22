@@ -27,7 +27,7 @@ const Signup = () => {
 
     try {
       const response = await axios.post(
-        "https://mboard-taupe.vercel.app//api/user/signup",
+        "https://mboard-taupe.vercel.app/api/user/signup",
         formData
       );
       console.log("signup response", response.data);

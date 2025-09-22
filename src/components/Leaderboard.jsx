@@ -9,7 +9,7 @@ const LeaderBoard = () => {
   const getAllMovies = async () => {
     try {
       const response = await axios.get(
-        "https://mboard-taupe.vercel.app//api/movies/getAllMovies"
+        "https://mboard-taupe.vercel.app/api/movies/getAllMovies"
       );
       console.log("response from get all movies", response.data);
 

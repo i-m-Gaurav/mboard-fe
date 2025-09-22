@@ -26,7 +26,7 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        "https://mboard-taupe.vercel.app//api/user/login",
+        "https://mboard-taupe.vercel.app/api/user/login",
         formData
       );
       // backend returns the token string directly

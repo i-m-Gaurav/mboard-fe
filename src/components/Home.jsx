@@ -8,7 +8,7 @@ const Home = () => {
 
   const getAllMovies = async () => {
     const response = await axios.get(
-      "https://mboard-taupe.vercel.app//api/movies/getAllMovies"
+      "https://mboard-taupe.vercel.app/api/movies/getAllMovies"
     );
     console.log("response from get all movies", response.data);
     setMovies(response.data);

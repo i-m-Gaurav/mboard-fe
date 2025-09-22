@@ -15,7 +15,7 @@ const Profile = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://mboard-taupe.vercel.app//api/movies/getUserMovies",
+        "https://mboard-taupe.vercel.app/api/movies/getUserMovies",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -32,7 +32,7 @@ const Profile = () => {
   const deleteMovie = async (id) => {
     try {
       await axios.delete(
-        `https://mboard-taupe.vercel.app//api/movies/suggestedMovie/${id}`,
+        `https://mboard-taupe.vercel.app/api/movies/suggestedMovie/${id}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -52,7 +52,7 @@ const Profile = () => {
         }
 
         const response = await axios.get(
-          "https://mboard-taupe.vercel.app//api/user/profile",
+          "https://mboard-taupe.vercel.app/api/user/profile",
           { headers: { Authorization: `Bearer ${token}` } }
         );
 

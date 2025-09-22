@@ -45,7 +45,7 @@ const MovieCard = ({ movie }) => {
 
     try {
       await axios.delete(
-        `https://mboard-taupe.vercel.app//api/movies/suggestedMovie/${movieId}`,
+        `https://mboard-taupe.vercel.app/api/movies/suggestedMovie/${movieId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       alert("Movie deleted successfully.");
@@ -67,7 +67,7 @@ const MovieCard = ({ movie }) => {
       }
 
       const response = await axios.post(
-        `https://mboard-taupe.vercel.app//api/movies/suggestedMovie/${movieId}/comments`,
+        `https://mboard-taupe.vercel.app/api/movies/suggestedMovie/${movieId}/comments`,
         { comment: commentsInput },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -95,7 +95,7 @@ const MovieCard = ({ movie }) => {
 
     try {
       const res = await axios.post(
-        `https://mboard-taupe.vercel.app//api/movies/suggestedMovie/${movieId}/vote`,
+        `https://mboard-taupe.vercel.app/api/movies/suggestedMovie/${movieId}/vote`,
         { vote: newVote },
         { headers: { Authorization: `Bearer ${token}` } }
       );
