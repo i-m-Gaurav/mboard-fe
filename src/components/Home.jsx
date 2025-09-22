@@ -10,7 +10,6 @@ const Home = () => {
     const response = await axios.get(
       "https://mboard-taupe.vercel.app/api/movies/getAllMovies"
     );
-    console.log("response from get all movies", response.data);
     setMovies(response.data);
   };
 
@@ -18,7 +17,6 @@ const Home = () => {
     getAllMovies();
   }, []);
 
-  console.log("movies in home", movies);
 
   return (
     <div className="min-h-screen bg-gray-900">
